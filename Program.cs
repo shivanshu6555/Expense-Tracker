@@ -1,7 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using SpendSmart.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ExpenseTrackerDBContext>(options => options.UseInMemoryDatabase("ExpensesDB"));
 
 var app = builder.Build();
 

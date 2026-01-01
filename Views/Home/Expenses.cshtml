@@ -2,6 +2,39 @@
     ViewData["Title"] = "Expenses";
 }
 
+@model List<SpendSmart.Models.Expense>
+
+
 <div class="text-center">
     <h1 class="display-4">Expenses</h1>
+    <br/>
+    <hr/>
+    <h3>Total Expenses : @ViewBag.Total</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.Id</td>
+                        <td>@item.Value</td>
+                        <td>@item.Description</td>
+                        <td><a asp-action="CreateEditExpense" asp-controller="Home" asp-route-id="@item.Id">Edit</a>
+                            <a asp-action="DeleteExpense" asp-controller="Home" asp-route-id="@item.Id">Delete</a>
+                        </td>
+
+                        
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
