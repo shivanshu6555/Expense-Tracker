@@ -1,6 +1,8 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SpendSmart.Models;
+using SpendSmart.ViewModels;
+using System.Diagnostics;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -21,12 +23,19 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Expenses()
+        public IActionResult Expenses(ExpenseViewModel model)
         {
-            var allExpenses = _context.Expenses.ToList();
-            var total = _context.Expenses.Sum(x => x.Value);
-            ViewBag.Total = total;
-            return View(allExpenses);
+            var expenses = _context.Expenses.ToList(); // or however you get your expenses
+            var viewModel = new ExpenseViewModel
+            {
+                ExpenseList = expenses,
+                // Set other properties if needed
+            };
+            if (model.Expense != null)
+            {
+                ViewBag.Total = expenses.Where(e => e.Category == model.Expense.Category).Sum(e => e.Value);
+            }
+            return View(viewModel);
         }
 
         public IActionResult CreateEditExpenseForm(Expense model)

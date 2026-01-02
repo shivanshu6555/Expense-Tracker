@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<ExpenseTrackerDBContext>(options => options.UseInMemoryDatabase("ExpensesDB"));
+builder.Services.AddDbContext<ExpenseTrackerDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection")));
 
 var app = builder.Build();
 

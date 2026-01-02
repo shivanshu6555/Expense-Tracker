@@ -1,4 +1,5 @@
-﻿@{
+﻿@using SpendSmart.Models
+@{
     ViewData["Title"] = "Create / Edit Expense";
 }
 
@@ -15,6 +16,9 @@
     <input class="form-control" type="number" placeholder="0" asp-for="Value" step="1" />
     <label class="mt-4">Description</label>
     <input class="form-control" type="text" placeholder="Enter desc" asp-for="Description" />
-
+    <label class="mt-4">Category</label>
+    <select asp-for="Category" asp-items="Html.GetEnumSelectList<ExpenseCategories>()" class="form-control">
+        <option value="other">-- Select Category --</option>
+    </select>
     <button class=" mt-4 btn btn-outline-primary" type="submit">Add</button>
 </form>
